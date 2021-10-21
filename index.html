@@ -16,6 +16,7 @@
         canvas.width = 480;
         canvas.height = 320;
         let x = 100;
+        let y = 50;
         let t0;
         let dt;
         requestAnimationFrame(desenha);
@@ -24,8 +25,9 @@
             t0 = t0 ?? t;
             dt = (t - t0)/1000; //milissegundos dividido por 1s
 
-            //Atualiza estado
+            //Atualiza estados
             x = x + 10*dt; //vira "tamanho" ou seja, roda a 10 pixels por segundos
+            y = 100 + 1500*Math.cos(t/1000)*dt;
             //variáveis de estado, não pode mudar bruscamente na animação, usar o dt;
 
             //desenha fundos
@@ -34,7 +36,7 @@
 
             //desenha elementos
             ctx.fillStyle = "white";
-            ctx.fillRect(x, 150, 20, 20);
+            ctx.fillRect(x, y, 20, 20);
 
             requestAnimationFrame(desenha);
             t0 = t;
