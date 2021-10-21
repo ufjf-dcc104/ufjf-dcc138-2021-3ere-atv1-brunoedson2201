@@ -22,7 +22,12 @@
 
         function desenha(t){
             t0 = t0 ?? t;
-            dt = (t - t0)/1000;
+            dt = (t - t0)/1000; //milissegundos dividido por 1s
+
+            //Atualiza estado
+            x = x + 10*dt; //vira "tamanho" ou seja, roda a 10 pixels por segundos
+            //variáveis de estado, não pode mudar bruscamente na animação, usar o dt;
+
             //desenha fundos
             ctx.fillStyle = "black";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
