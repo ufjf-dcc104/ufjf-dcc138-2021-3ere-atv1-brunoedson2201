@@ -19,6 +19,7 @@
         let vx = 0; //velocidade de x
         let y = 50;
         let vy = 0; //velocidade de y
+        const V = 80;
         let a = 0;
         let t0;
         let dt;
@@ -53,19 +54,19 @@
             console.log(event.key);
             switch (event.key) {
                 case "ArrowUp":
-                    vy = -20;
+                    vy = -V;
                     break;
                 
                 case "ArrowDown":
-                    vy = +20;
+                    vy = +V;
                     break;
 
                 case "ArrowLeft":
-                    vx = -20;
+                    vx = -V;
                     break;
 
                 case "ArrowRight":
-                    vx = +20;
+                    vx = +V;
                     break;
             }
         }
