@@ -9,7 +9,7 @@
 <body>
     <h1>DCC138 Exemplo01</h1>
     <canvas></canvas>
-    <p>por Bruno Edson</p>
+    <p>por Bruno Edson de Paiva Alves</p>
     <script>
         let canvas = document.querySelector("canvas");
         let ctx = canvas.getContext("2d");
@@ -17,6 +17,7 @@
         canvas.height = 320;
         let x = 100;
         let y = 50;
+        let a = 0;
         let t0;
         let dt;
         requestAnimationFrame(desenha);
@@ -27,7 +28,8 @@
 
             //Atualiza estados
             x = x + 10*dt; //vira "tamanho" ou seja, roda a 10 pixels por segundos
-            y = 100 + 1500*Math.cos(t/1000)*dt;
+            a = a +2*Math.PI*dt;
+            y = 100 + 100*Math.cos(a);
             //variáveis de estado, não pode mudar bruscamente na animação, usar o dt;
 
             //desenha fundos
