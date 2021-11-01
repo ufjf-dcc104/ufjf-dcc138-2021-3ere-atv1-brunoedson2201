@@ -27,9 +27,9 @@
             dt = (t - t0)/1000; //milissegundos dividido por 1s
 
             //Atualiza estados
-            x = x + 10*dt; //vira "tamanho" ou seja, roda a 10 pixels por segundos
+            y = y + 10*dt; //vira "tamanho" ou seja, roda a 10 pixels por segundos
             a = a +2*Math.PI*dt;
-            y = 100 + 100*Math.cos(a);
+            x = 150 + 100*Math.sin(a);
             //variáveis de estado, não pode mudar bruscamente na animação, usar o dt;
 
             //desenha fundos
