@@ -16,7 +16,9 @@
         canvas.width = 480;
         canvas.height = 320;
         let x = 100;
+        let vx = 0; //velocidade de x
         let y = 50;
+        let vy = 0; //velocidade de y
         let a = 0;
         let t0;
         let dt;
@@ -27,9 +29,8 @@
             dt = (t - t0)/1000; //milissegundos dividido por 1s
 
             //Atualiza estados
-            y = y + 10*dt; //vira "tamanho" ou seja, roda a 10 pixels por segundos
-            a = a +2*Math.PI*dt;
-            x = 150 + 100*Math.sin(a);
+            x = x + vx*dt; //vira "tamanho", ou seja, roda a 10 pixels por segundos
+            y = y + vy*dt;
             //variáveis de estado, não pode mudar bruscamente na animação, usar o dt;
 
             //desenha fundos
@@ -42,6 +43,33 @@
 
             requestAnimationFrame(desenha);
             t0 = t;
+        }
+
+        addEventListener("keydown", teclaPressionada);
+
+        function teclaPressionada(event){
+            //adiciona controle de velocidade
+            console.log(event.key);
+            switch (event.key) {
+                case "ArrowUp":
+                    vy = -20;
+                    break;
+                
+                case "ArrowDown":
+                    vy = +20;
+                    break;
+
+                case "ArrowLeft":
+                    vx = -20;
+                    break;
+
+                case "ArrowRight":
+                    vx = +20;
+                    break;
+            
+                default:
+                    break;
+            }
         }
 
     </script>
