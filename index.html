@@ -21,6 +21,16 @@
         let y = 50;
         let vy = 0; //velocidade de y
         let ay = 0;
+
+
+        let ex = 300;
+        let evx = 0; //velocidade de x
+        let eax = 0;
+        let ey = 200;
+        let evy = 0; //velocidade de y
+        let eay = 0;
+
+
         const K = 80;
         let a = 0;
         let t0;
@@ -31,11 +41,20 @@
             t0 = t0 ?? t;
             dt = (t - t0)/1000; //milissegundos dividido por 1s
 
-            //Atualiza estados
+            //controladores
+            eax = 0.5*(x - ex)- 0.2*evy;
+            eay = 0.5*(y - ey) - 0.2*evy;
+
+            //Atualiza dinâmica dos estados
             vx = vx + ax*dt;
             x = x + vx*dt;
             vy = vy + ay*dt;
             y = y + vy*dt;
+
+            evx = evx + eax*dt;
+            ex = ex + evx*dt;
+            evy = evy + eay*dt;
+            ey = ey + evy*dt;
             //variáveis de estado, não pode mudar bruscamente na animação, usar o dt;
 
             //desenha fundos
@@ -45,6 +64,9 @@
             //desenha elementos
             ctx.fillStyle = "white";
             ctx.fillRect(x, y, 20, 20);
+
+            ctx.fillStyle = "red";
+            ctx.fillRect(ex, ey, 20, 20);
 
             requestAnimationFrame(desenha);
             t0 = t;
