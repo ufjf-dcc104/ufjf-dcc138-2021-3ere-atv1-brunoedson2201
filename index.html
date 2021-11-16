@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DCC138 Exemplo01</title>
+    <title>DCC138 exemplo01</title>
 </head>
 <body>
-    <h1>DCC138 Exemplo01</h1>
+    <h1>DCC138 exemplo01</h1>
     <canvas></canvas>
     <p>por Bruno Edson de Paiva Alves</p>
     <script>
@@ -23,14 +23,16 @@
             y : 100,
             vy : 0, //velocidade de y
             ay : 0
-        }
+        };
 
-        let ex = 300;
-        let evx = 0; //velocidade de x
-        let eax = 0;
-        let ey = 200;
-        let evy = 0; //velocidade de y
-        let eay = 0;
+        let e = {
+            x : 300,
+            vx : 0, //velocidade de x
+            ax : 0,
+            ey : 200,
+            evy : 0, //velocidade de y
+            eay : 0
+        }
 
 
         const K = 80;
@@ -44,8 +46,8 @@
             dt = (t - t0)/1000; //milissegundos dividido por 1s
 
             //controladores
-            eax = 0.5*(p.x - ex) - 0.2*evx;
-            eay = 0.5*(p.y - ey) - 0.2*evy;
+            e.ax = 0.5*(p.x - e.x) - 0.2*e.vx;
+            e.eay = 0.5*(p.y - e.ey) - 0.2*e.evy;
 
             //Atualiza dinâmica dos estados
             p.vx = p.vx + p.ax*dt;
@@ -53,10 +55,10 @@
             p.vy = p.vy + p.ay*dt;
             p.y = p.y + p.vy*dt;
 
-            evx = evx + eax*dt;
-            ex = ex + evx*dt;
-            evy = evy + eay*dt;
-            ey = ey + evy*dt;
+            e.vx = e.vx + e.ax*dt;
+            e.x = e.x + e.vx*dt;
+            e.evy = e.evy + e.eay*dt;
+            e.ey = e.ey + e.evy*dt;
             //variáveis de estado, não pode mudar bruscamente na animação, usar o dt;
 
             //desenha fundos
@@ -68,7 +70,7 @@
             ctx.fillRect(p.x, p.y, 20, 20);
 
             ctx.fillStyle = "red";
-            ctx.fillRect(ex, ey, 20, 20);
+            ctx.fillRect(e.x, e.ey, 20, 20);
 
             requestAnimationFrame(desenha);
             t0 = t;
