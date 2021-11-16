@@ -22,7 +22,11 @@
             ax : 0,
             y : 100,
             vy : 0, //velocidade de y
-            ay : 0
+            ay : 0,
+            desenhar: function(){
+                ctx.fillStyle = "white";
+                ctx.fillRect(this.x, this.y, 20, 20);
+            }
         };
 
         let e = {
@@ -31,7 +35,11 @@
             ax : 0,
             ey : 200,
             evy : 0, //velocidade de y
-            eay : 0
+            eay : 0,
+            desenhar: function(){
+                ctx.fillStyle = "red";
+                ctx.fillRect(this.x, this.ey, 20, 20);
+            }
         }
 
 
@@ -66,11 +74,8 @@
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             //desenha elementos
-            ctx.fillStyle = "white";
-            ctx.fillRect(p.x, p.y, 20, 20);
-
-            ctx.fillStyle = "red";
-            ctx.fillRect(e.x, e.ey, 20, 20);
+            p.desenhar();
+            e.desenhar();
 
             requestAnimationFrame(desenha);
             t0 = t;
