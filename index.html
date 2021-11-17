@@ -26,7 +26,8 @@
             desenhar: function(){
                 ctx.fillStyle = "white";
                 ctx.fillRect(this.x, this.y, 20, 20);
-            }
+            },
+            mover: moverElemento
         };
 
         let e = {
@@ -39,9 +40,9 @@
             desenhar: function(){
                 ctx.fillStyle = "red";
                 ctx.fillRect(this.x, this.ey, 20, 20);
-            }
-        }
-
+            },
+            mover: moverElemento
+        };
 
         const K = 80;
         let a = 0;
@@ -58,15 +59,9 @@
             e.eay = 0.5*(p.y - e.ey) - 0.2*e.evy;
 
             //Atualiza dinâmica dos estados
-            p.vx = p.vx + p.ax*dt;
-            p.x = p.x + p.vx*dt;
-            p.vy = p.vy + p.ay*dt;
-            p.y = p.y + p.vy*dt;
-
-            e.vx = e.vx + e.ax*dt;
-            e.x = e.x + e.vx*dt;
-            e.evy = e.evy + e.eay*dt;
-            e.ey = e.ey + e.evy*dt;
+            p.mover();
+            e.mover();
+            
             //variáveis de estado, não pode mudar bruscamente na animação, usar o dt;
 
             //desenha fundos
@@ -76,6 +71,13 @@
             //desenha elementos
             p.desenhar();
             e.desenhar();
+
+            function moverElemento(){
+                this.vx = this.vx + this.ax*dt;
+                this.x = this.x + this.vx*dt;
+                this.vy = this.vy + this.ay*dt;
+                this.y = this.y + this.vy*dt;
+            }
 
             requestAnimationFrame(desenha);
             t0 = t;
