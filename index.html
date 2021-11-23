@@ -23,25 +23,21 @@
             y : 100,
             vy : 0, //velocidade de y
             ay : 0,
-            desenhar: function(){
-                ctx.fillStyle = "white";
-                ctx.fillRect(this.x, this.y, 20, 20);
-            },
-            mover: moverElemento
+            cor: "white",
+            desenhar: desenharElemento,
+            mover: moverElemento,
         };
 
         let e = {
             x : 300,
             vx : 0, //velocidade de x
             ax : 0,
-            ey : 200,
-            evy : 0, //velocidade de y
-            eay : 0,
-            desenhar: function(){
-                ctx.fillStyle = "red";
-                ctx.fillRect(this.x, this.ey, 20, 20);
-            },
-            mover: moverElemento
+            y : 200,
+            vy : 0, //velocidade de y
+            ay : 0,
+            cor: "red",
+            desenhar: desenharElemento,
+            mover: moverElemento,
         };
 
         const K = 80;
@@ -72,15 +68,20 @@
             p.desenhar();
             e.desenhar();
 
-            function moverElemento(){
-                this.vx = this.vx + this.ax*dt;
-                this.x = this.x + this.vx*dt;
-                this.vy = this.vy + this.ay*dt;
-                this.y = this.y + this.vy*dt;
-            }
-
             requestAnimationFrame(desenha);
             t0 = t;
+        }
+
+        function moverElemento(){
+            this.vx = this.vx + this.ax*dt;
+            this.x = this.x + this.vx*dt;
+            this.vy = this.vy + this.ay*dt;
+            this.y = this.y + this.vy*dt;
+        }
+
+        function desenharElemento(){
+            ctx.fillStyle = this.cor;
+            ctx.fillRect(this.x, this.y, 20, 20);
         }
 
         addEventListener("keydown", teclaPressionada);
