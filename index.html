@@ -38,6 +38,7 @@
             cor: "red",
             desenhar: desenharElemento,
             mover: moverElemento,
+            controlar: perseguirAlvo
         };
 
         const K = 80;
@@ -51,8 +52,8 @@
             dt = (t - t0)/1000; //milissegundos dividido por 1s
 
             //controladores
-            e.ax = 0.5*(p.x - e.x) - 0.2*e.vx;
-            e.eay = 0.5*(p.y - e.ey) - 0.2*e.evy;
+            //e.controlar({x:250, y: 120});
+            e.controlar(p);
 
             //Atualiza dinâmica dos estados
             p.mover();
@@ -82,6 +83,16 @@
         function desenharElemento(){
             ctx.fillStyle = this.cor;
             ctx.fillRect(this.x, this.y, 20, 20);
+        }
+        
+        function perseguirAlvo(alvo){
+            this.ax = 0.5*(alvo.x - this.x) - 0.2*this.vx;
+            this.eay = 0.5*(alvo.y - this.ey) - 0.2*this.evy;
+        }
+
+        function evitarAlvo(alvo){
+            this.ax = -0.5*(alvo.x - this.x) - 0.2*this.vx;
+            this.eay = -0.5*(alvo.y - this.ey) - 0.2*this.evy;
         }
 
         addEventListener("keydown", teclaPressionada);
