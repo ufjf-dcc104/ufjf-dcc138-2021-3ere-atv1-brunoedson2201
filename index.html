@@ -32,8 +32,8 @@
       const sprites = [];
       for (let ne = 0; ne < 20; ne++) {
         let e = {
-          x: canvas.width * Math.random(),
-          vx: 0, //velocidade de x
+          x: canvas.width * (1+ 10*Math.random()),
+          vx: -20, //velocidade de x
           ax: 0,
           y: canvas.height * Math.random(),
           vy: 0, //velocidade de y
@@ -114,8 +114,8 @@
       }
 
       function perseguirAlvo(alvo) {
-        this.ax = 0.5 * (alvo.x - this.x) - 0.2 * this.ax;
-        this.ay = 0.5 * (alvo.y - this.y) - 0.2 * this.ay;
+        this.ax = 100 * Math.sign(alvo.x - this.x) - 0.2 * this.ax;
+        this.ay = 100 * Math.sign(alvo.y - this.y) - 0.2 * this.ay;
       }
 
       function evitarAlvo(alvo) {
@@ -161,14 +161,14 @@
           case "ArrowRight":
             p.ax = 0;
             break;
-			case " ":
-				if(o.x === -1000){
-					o.x = p.x;
-					o.y = p.y;
-					o.vx = 0;
-					o.ax = 100;
-					break;
-				}
+          case " ":
+            if (o.x === -1000) {
+              o.x = p.x;
+              o.y = p.y;
+              o.vx = 0;
+              o.ax = 100;
+              break;
+            }
         }
       }
     </script>
