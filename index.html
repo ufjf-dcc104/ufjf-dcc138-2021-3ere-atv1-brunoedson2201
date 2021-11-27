@@ -24,6 +24,8 @@
         y: 100,
         vy: 0, //velocidade de y
         ay: 0,
+        w: 40,
+        h: 15,
         cor: "white",
         desenhar: desenharElemento,
         mover: moverElemento,
@@ -38,6 +40,8 @@
           y: canvas.height * Math.random(),
           vy: 0, //velocidade de y
           ay: 0,
+          w: 15,
+          h: 15,
           cor: "red",
           desenhar: desenharElemento,
           mover: moverElemento,
@@ -53,6 +57,8 @@
         y: 150,
         vy: 0, //velocidade de y
         ay: 0,
+        w: 5,
+        h: 5,
         cor: "blue",
         desenhar: desenharElemento,
         mover: moverElemento,
@@ -92,8 +98,7 @@
           //Atualiza dinâmica dos estados
           sprite.mover?.();
           //desenha elementos
-          sprite.desenhar();
-
+          
           if(colidiram(o, sprite) && o !== sprite){
             o.x = -1000;
             o.y = -1000;
@@ -104,7 +109,7 @@
             sprite.ax = 0;
             pontos++;
           }
-
+          
           if(colidiram(p, sprite) && o !== sprite){
             sprite.x = 1000;
             sprite.vx = 100;
@@ -113,10 +118,11 @@
           }
         }
         //variáveis de estado, não pode mudar bruscamente na animação, usar o dt;
-
+        sprite.desenhar();
+        
         ctx.fillStyle = "yellow";
         ctx.font = "20px Impact";
-        ctx.fillText(pontos, 10, 10);
+        ctx.fillText(pontos, 10, 30);
 
         requestAnimationFrame(desenha);
         t0 = t;
@@ -131,7 +137,7 @@
 
       function desenharElemento() {
         ctx.fillStyle = this.cor;
-        ctx.fillRect(this.x, this.y, 20, 20);
+        ctx.fillRect(this.x, this.y, this.w, this.h);
       }
 
       function perseguirAlvo(alvo) {
@@ -184,7 +190,7 @@
             if (o.x === -1000) {
               o.x = p.x;
               o.y = p.y;
-              o.vx = 0;
+              o.vx = 200;
               o.ax = 100;
               break;
             }
@@ -193,10 +199,10 @@
 
       function colidiram(A, B) {
         return !(
-          A.x > B.x + 20 ||
+          A.x > B.x + B.w ||
           A.x + 20 < B.x ||
-          A.y > B.y + 20 ||
-          A.y + 20 < B.y
+          A.y > B.y + B.y ||
+          A.y + A.h < B.y
         );
       }
     </script>
