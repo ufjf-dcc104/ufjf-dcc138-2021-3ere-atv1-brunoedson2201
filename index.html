@@ -16,7 +16,7 @@
       let ctx = canvas.getContext("2d");
       canvas.width = 480;
       canvas.height = 320;
-
+      let pontos = 0;
       let p = {
         x: 150,
         vx: 0, //velocidade de x
@@ -32,7 +32,7 @@
       const sprites = [];
       for (let ne = 0; ne < 20; ne++) {
         let e = {
-          x: canvas.width * (1+ 10*Math.random()),
+          x: canvas.width * (1 + 10 * Math.random()),
           vx: -20, //velocidade de x
           ax: 0,
           y: canvas.height * Math.random(),
@@ -93,9 +93,30 @@
           sprite.mover?.();
           //desenha elementos
           sprite.desenhar();
-        }
 
+          if(colidiram(o, sprite) && o !== sprite){
+            o.x = -1000;
+            o.y = -1000;
+            o.vx = 0;
+            o.ax = 0;
+            sprite.x = 1000;
+            sprite.vx = 100;
+            sprite.ax = 0;
+            pontos++;
+          }
+
+          if(colidiram(p, sprite) && o !== sprite){
+            sprite.x = 1000;
+            sprite.vx = 100;
+            sprite.ax = 0;
+            pontos -= 3;
+          }
+        }
         //variáveis de estado, não pode mudar bruscamente na animação, usar o dt;
+
+        ctx.fillStyle = "yellow";
+        ctx.font = "20px Impact";
+        ctx.fillText(pontos, 10, 10);
 
         requestAnimationFrame(desenha);
         t0 = t;
@@ -128,7 +149,6 @@
 
       function teclaPressionada(event) {
         //adiciona controle de velocidade
-        console.log(event.key);
         switch (event.key) {
           case "ArrowUp":
             p.ay = -K;
@@ -147,7 +167,6 @@
 
       function teclaSolta(event) {
         //adiciona controle de velocidade
-        console.log(event.key);
         switch (event.key) {
           case "ArrowUp":
             p.ay = 0;
@@ -170,6 +189,15 @@
               break;
             }
         }
+      }
+
+      function colidiram(A, B) {
+        return !(
+          A.x > B.x + 20 ||
+          A.x + 20 < B.x ||
+          A.y > B.y + 20 ||
+          A.y + 20 < B.y
+        );
       }
     </script>
   </body>
