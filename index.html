@@ -60,8 +60,9 @@
         w: 5,
         h: 5,
         cor: "blue",
+        w: 5,
+        h: 5,
         desenhar: desenharElemento,
-        mover: moverElemento,
         mover: moverElemento,
         controlar: function () {
           if (this.x > canvas.width + 60) {
@@ -71,7 +72,6 @@
           }
         },
       };
-
       sprites.push(o);
 
       const K = 180;
@@ -88,8 +88,7 @@
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         p.mover();
-        p.desenhar();
-
+        
         for (let s = 0; s < sprites.length; s++) {
           const sprite = sprites[s];
           //controladores
@@ -98,6 +97,7 @@
           //Atualiza dinâmica dos estados
           sprite.mover?.();
           //desenha elementos
+          sprite.desenhar();
           
           if(colidiram(o, sprite) && o !== sprite){
             o.x = -1000;
@@ -118,7 +118,7 @@
           }
         }
         //variáveis de estado, não pode mudar bruscamente na animação, usar o dt;
-        sprite.desenhar();
+        p.desenhar();
         
         ctx.fillStyle = "yellow";
         ctx.font = "20px Impact";
@@ -192,17 +192,17 @@
               o.y = p.y;
               o.vx = 200;
               o.ax = 100;
-              break;
             }
+          break;
         }
       }
 
       function colidiram(A, B) {
         return !(
-          A.x > B.x + B.w ||
-          A.x + 20 < B.x ||
-          A.y > B.y + B.y ||
-          A.y + A.h < B.y
+          (A.x > B.x + B.w) ||
+          (A.x + A.w < B.x) ||
+          (A.y > B.y + B.h) ||
+          (A.y + A.h < B.y)
         );
       }
     </script>
